@@ -1,7 +1,35 @@
 import * as React from 'react';
+import { Paper, makeStyles, Typography, Box, Button } from '@material-ui/core';
 
-export interface LoginPageProps {}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+  },
 
-export default function LoginPage(props: LoginPageProps) {
-  return <div>Login Page</div>;
+  box: {
+    padding: theme.spacing(2),
+  },
+}));
+
+export default function LoginPage() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.box} elevation={1}>
+        <Typography variant="h5" component="h1">
+          Student Management
+        </Typography>
+        <Box mt={4}>
+          <Button fullWidth variant="contained" color="primary">
+            Fake Login
+          </Button>
+        </Box>
+      </Paper>
+    </div>
+  );
 }
