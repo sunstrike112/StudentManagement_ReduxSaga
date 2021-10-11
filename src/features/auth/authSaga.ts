@@ -13,12 +13,12 @@ function* handleLogin(payload: LoginPayload) {
         name: 'Bug Creator',
       })
     );
+
+    // Redirect to admin page
+    yield put(push('/admin/dashboard'));
   } catch (error) {
     yield put(authActions.loginFailed);
   }
-
-  // Redirect to admin page
-  yield put(push('/admin'));
 }
 
 function* handleLogout() {
