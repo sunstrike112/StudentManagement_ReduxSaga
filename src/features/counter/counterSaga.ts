@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { delay, put, takeEvery } from 'redux-saga/effects';
 import { incrementSaga, incrementSagaSucess } from './counterSlice';
 
 function* handleIncrementSaga(action: PayloadAction<number>) {

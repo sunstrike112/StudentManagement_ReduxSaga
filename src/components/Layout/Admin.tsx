@@ -2,7 +2,6 @@ import { Box, makeStyles } from '@material-ui/core';
 import { Header, Sidebar } from 'components/Common';
 import StudentFeature from 'features/student';
 import { Switch, Route } from 'react-router-dom';
-import Dashboard from 'features/dashboard';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'grid',
