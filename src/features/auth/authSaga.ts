@@ -1,31 +1,31 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { push } from 'connected-react-router';
-import { fork, take, call, delay, put } from 'redux-saga/effects';
+import { call, delay, fork, put, take } from 'redux-saga/effects';
 import { authActions, LoginPayload } from './authSlice';
 
 function* handleLogin(payload: LoginPayload) {
   try {
     yield delay(1000);
+
     localStorage.setItem('access_token', 'fake_token');
     yield put(
-      authActions.loginSucess({
+      authActions.loginSuccess({
         id: 1,
-        name: 'Bug Creator',
+        name: 'Easy Frontend',
       })
     );
 
-    // Redirect to admin page
+    // redirect to admin page
     yield put(push('/admin/dashboard'));
   } catch (error) {
-    yield put(authActions.loginFailed);
+    yield put(authActions.loginFailed(error.message));
   }
 }
 
 function* handleLogout() {
-  yield delay(1000);
+  yield delay(500);
   localStorage.removeItem('access_token');
-
-  // Redirect to login page
+  // redirect to login page
   yield put(push('/login'));
 }
 
@@ -43,6 +43,6 @@ function* watchLoginFlow() {
   }
 }
 
-export function* authSaga() {
+export default function* authSaga() {
   yield fork(watchLoginFlow);
 }

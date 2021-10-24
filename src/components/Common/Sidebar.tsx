@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
     textDecoration: 'none',
 
-    '&.active>div': {
+    '&.active > div': {
       backgroundColor: theme.palette.action.selected,
     },
   },

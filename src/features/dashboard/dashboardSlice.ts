@@ -11,6 +11,7 @@ export interface DashboardStatistics {
 
 export interface RankingByCity {
   cityId: string;
+  cityName: string;
   rankingList: Student[];
 }
 
@@ -58,7 +59,7 @@ const dashboardSlice = createSlice({
     setLowestStudentList(state, action: PayloadAction<Student[]>) {
       state.lowestStudentList = action.payload;
     },
-    setRankingByCity(state, action: PayloadAction<RankingByCity[]>) {
+    setRankingByCityList(state, action: PayloadAction<RankingByCity[]>) {
       state.rankingByCityList = action.payload;
     },
   },
@@ -68,11 +69,11 @@ const dashboardSlice = createSlice({
 export const dashboardActions = dashboardSlice.actions;
 
 // Selectors
-export const selectDashboardStatistics = (state: RootState) => state.dashboard.statistics;
 export const selectDashboardLoading = (state: RootState) => state.dashboard.loading;
-export const selectHightStudentList = (state: RootState) => state.dashboard.highestStudentList;
+export const selectDashboardStatistics = (state: RootState) => state.dashboard.statistics;
+export const selectHighestStudentList = (state: RootState) => state.dashboard.highestStudentList;
 export const selectLowestStudentList = (state: RootState) => state.dashboard.lowestStudentList;
-export const selectRankingByCity = (state: RootState) => state.dashboard.rankingByCityList;
+export const selectRankingByCityList = (state: RootState) => state.dashboard.rankingByCityList;
 
 // Reducer
 const dashboardReducer = dashboardSlice.reducer;

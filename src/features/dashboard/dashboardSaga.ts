@@ -12,9 +12,8 @@ function* fetchStatistics() {
     call(studentApi.getAll, { _page: 1, _limit: 1, mark_lte: 5 }),
   ]);
 
-  const statisticsList = responseList.map((x) => x.pagination._totalRows);
-  const [maleCount, femaleCount, highMarkCount, lowMarkCount] = statisticsList;
-
+  const statisticList = responseList.map((x) => x.pagination._totalRows);
+  const [maleCount, femaleCount, highMarkCount, lowMarkCount] = statisticList;
   yield put(
     dashboardActions.setStatistics({ maleCount, femaleCount, highMarkCount, lowMarkCount })
   );
@@ -42,29 +41,29 @@ function* fetchLowestStudentList() {
   yield put(dashboardActions.setLowestStudentList(data));
 }
 
-function* fetchRankingByList() {
+function* fetchRankingByCityList() {
   // Fetch city list
   const { data: cityList }: ListResponse<City> = yield call(cityApi.getAll);
 
   // Fetch ranking per city
-  const callList = cityList.map((city) =>
+  const callList = cityList.map((x) =>
     call(studentApi.getAll, {
       _page: 1,
       _limit: 5,
       _sort: 'mark',
       _order: 'desc',
-      city: city.code,
+      city: x.code,
     })
   );
-
   const responseList: Array<ListResponse<Student>> = yield all(callList);
-  const rankingByCityList: Array<RankingByCity> = responseList.map((item, index) => ({
-    cityId: cityList[index].code,
-    rankingList: item.data,
+  const rankingByCityList: Array<RankingByCity> = responseList.map((x, idx) => ({
+    cityId: cityList[idx].code,
+    cityName: cityList[idx].name,
+    rankingList: x.data,
   }));
 
-  // Update city
-  yield put(dashboardActions.setRankingByCity(rankingByCityList));
+  // Update state
+  yield put(dashboardActions.setRankingByCityList(rankingByCityList));
 }
 
 function* fetchDashboardData() {
@@ -73,17 +72,16 @@ function* fetchDashboardData() {
       call(fetchStatistics),
       call(fetchHighestStudentList),
       call(fetchLowestStudentList),
-      call(fetchRankingByList),
+      call(fetchRankingByCityList),
     ]);
 
     yield put(dashboardActions.fetchDataSuccess());
   } catch (error) {
-    console.log('Failed to fetch dashboard data !!!', error);
+    console.log('Failed to fetch dashboard data', error);
     yield put(dashboardActions.fetchDataFailed());
   }
 }
 
 export default function* dashboardSaga() {
   yield takeLatest(dashboardActions.fetchData.type, fetchDashboardData);
-  console.log('run dashboardSaga');
 }

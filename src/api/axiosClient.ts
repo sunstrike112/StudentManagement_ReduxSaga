@@ -7,8 +7,6 @@ const axiosClient = axios.create({
   },
 });
 
-export default axiosClient;
-
 // Add a request interceptor
 axiosClient.interceptors.request.use(
   function (config: AxiosRequestConfig) {
@@ -34,3 +32,5 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default axiosClient;
