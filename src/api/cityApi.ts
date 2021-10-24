@@ -1,5 +1,5 @@
+import { City, ListResponse } from 'models';
 import axiosClient from './axiosClient';
-import { ListResponse, City } from 'models';
 
 const cityApi = {
   getAll(): Promise<ListResponse<City>> {

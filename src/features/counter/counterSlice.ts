@@ -46,8 +46,7 @@ export const counterSlice = createSlice({
     incrementSaga: (state, action: PayloadAction<number>) => {
       state.status = 'loading';
     },
-
-    incrementSagaSucess: (state, action: PayloadAction<number>) => {
+    incrementSagaSuccess: (state, action: PayloadAction<number>) => {
       state.status = 'idle';
       state.value += action.payload;
     },
@@ -66,13 +65,8 @@ export const counterSlice = createSlice({
   },
 });
 
-export const {
-  increment,
-  decrement,
-  incrementByAmount,
-  incrementSaga,
-  incrementSagaSucess,
-} = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, incrementSaga, incrementSagaSuccess } =
+  counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -81,11 +75,13 @@ export const selectCount = (state: RootState) => state.counter.value;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
-export const incrementIfOdd = (amount: number): AppThunk => (dispatch, getState) => {
-  const currentValue = selectCount(getState());
-  if (currentValue % 2 === 1) {
-    dispatch(incrementByAmount(amount));
-  }
-};
+export const incrementIfOdd =
+  (amount: number): AppThunk =>
+  (dispatch, getState) => {
+    const currentValue = selectCount(getState());
+    if (currentValue % 2 === 1) {
+      dispatch(incrementByAmount(amount));
+    }
+  };
 
 export default counterSlice.reducer;

@@ -25,7 +25,7 @@ const authSlice = createSlice({
     login(state, action: PayloadAction<LoginPayload>) {
       state.logging = true;
     },
-    loginSucess(state, action: PayloadAction<User>) {
+    loginSuccess(state, action: PayloadAction<User>) {
       state.isLoggedIn = true;
       state.logging = false;
       state.currentUser = action.payload;
@@ -44,10 +44,10 @@ const authSlice = createSlice({
 // Actions
 export const authActions = authSlice.actions;
 
-//Selectors
+// Selectors
 export const selectIsLoggedIn = (state: any) => state.auth.isLoggedIn;
-export const selectIsLogging = (state: any) => state.auth.isLogging;
+export const selectIsLogging = (state: any) => state.auth.logging;
 
-// Reducers
+// Reducer
 const authReducer = authSlice.reducer;
 export default authReducer;
